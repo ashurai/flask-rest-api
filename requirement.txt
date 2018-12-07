@@ -1,0 +1,8 @@
+Flask
+connexion
+pymongo
+flask_pymongo
+jsonschema
+flask_bcrypt
+Flask_JWT_Extended
+uwsgi

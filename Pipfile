@@ -1,0 +1,20 @@
+[[source]]
+verify_ssl = true
+url = "https://pypi.org/simple"
+name = "pypi"
+
+[dev-packages]
+
+[packages]
+connexion = "*"
+pymongo = "*"
+jsonschema = "*"
+Flask = "*"
+Flask-PyMongo = "*"
+flask-bcrypt = "*"
+flask-jwt-extended = "*"
+pip = "*"
+uwsgi = "*"
+
+[requires]
+python_version = "3.5"

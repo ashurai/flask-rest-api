@@ -1,0 +1,286 @@
+# API definition
+swagger: '2.0'
+info:
+  description: User Search and Bookarak app
+  title: 'User bookmarks'
+  version: '0.1'
+
+consumes:
+  - application/json
+produces:
+- application/json
+
+basePath: /api/v0
+
+paths:
+  /search:
+    post:
+      operationId: app.search.post_search
+      tags:
+        - Search
+      parameters:
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/search"
+      responses:
+        '200':
+          description: 'Post data to the users searches'
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/search'
+
+  /search/{emailId}:
+    get:
+      operationId: app.search.get_search
+      tags:
+        - Search
+      parameters:
+      - name: "emailId"
+        in: "path"
+        required: true
+        description: "Required parameter to identify user"
+        type: "string"
+      responses:
+        '200':
+          description: 'Post data to the users searches'
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/search'
+
+  /bookmark:
+    post:
+      operationId: app.bookmark.post_bookmark
+      tags:
+        - Bookmark
+      parameters:
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/bookmark"
+      responses:
+        '200':
+          description: 'Post data to the users bookmark'
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/bookmark'
+
+
+  /bookmark/{emailId}:
+    get:
+      operationId: app.bookmark.user_bookmark
+      tags:
+        - Bookmark
+      parameters:
+      - name: "emailId"
+        in: "path"
+        required: true
+        description: "Required parameter to identify user"
+        type: "string"
+      responses:
+        '200':
+          description: 'Get data to the users bookmark'
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/bookmark'
+
+
+  /bookmark/{bookmarkId}:
+    get:
+      operationId: app.bookmark.get_bookmark
+      tags:
+        - Bookmark
+      parameters:
+      - name: "bookmarkId"
+        in: "path"
+        required: true
+        description: "Required parameter to get particular bookmark"
+        type: "string"
+      responses:
+        '200':
+          description: 'Get particular bookmark'
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/bookmark'
+    put:
+      operationId: app.bookmark.put_bookmark
+      tags:
+        - Bookmark
+      parameters:
+      - name: "bookmarkId"
+        in: "path"
+        required: true
+        description: "Required parameter to update bookmark"
+        type: "string"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/bookmark"
+      responses:
+        '200':
+          description: 'Get particular bookmark to update by id'
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/bookmark'
+    delete:
+      operationId: app.bookmark.delete_bookmark
+      tags:
+        - Bookmark
+      parameters:
+      - name: "bookmarkId"
+        in: "path"
+        required: true
+        description: "Required parameter to delete particular bookmark"
+        type: "string"
+      responses:
+        '200':
+          description: 'Delete particular bookmark'
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/bookmark'
+
+  /user/{emailId}:
+    get:
+      operationId: app.users.get_user
+      tags:
+        - User
+      parameters:
+      - name: "emailId"
+        in: "path"
+        required: true
+        description: "Required parameter to identify user"
+        type: "string"
+      responses:
+        '200':
+          description: 'Get data to the user'
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/user'
+
+definitions:
+  search:
+    type: "object"
+    properties:
+      "emailId":
+        "type": "string"
+      "name": 
+        "type": "string"
+      "service" : 
+        "type": "string"
+      "url" : 
+        "type": "string"
+        "format": url
+      "platform" :  
+          "type" : "string"
+      "parameters": 
+          "type": array
+          "items":
+            "type": object
+            "properties":
+              "key":
+                "type": string
+              "value":
+                "type": string
+          "example":
+            - "key": xyz
+              "value": Jessica Smith
+            - "key": abc
+              "value": Ron Stewart
+      "public" :
+          "type" : "boolean"
+      "active" : 
+          "type" : "boolean"
+      "dateCreated" : 
+          "type": "string"
+          "format": "date-time"
+      "dateUpdated" : 
+          "type": "string"
+          "format": "date-time"
+      "dateDeleted" : 
+          "type": "string"
+          "format": "date-time"
+      "visitCounter" : 
+          "type": "integer"
+      "history" : 
+          "type" : "array"
+          "items":
+            "type": object
+            "properties":
+              "history" : 
+                "type": "string"
+                "format": "date-time"
+
+  bookmark:
+    type: "object"
+    properties:
+      "emailId":
+        "type": "string"
+      "name": 
+        "type": "string"
+      "service" : 
+        "type": "string"
+      "url" : 
+        "type": "string"
+        "format": url
+      "platform" :  
+          "type" : "string"
+      "public" :
+          "type" : "boolean"
+      "active" : 
+          "type" : "boolean"
+      "dateCreated" : 
+          "type": "string"
+          "format": "date-time"
+      "dateUpdated" : 
+          "type": "string"
+          "format": "date-time"
+      "dateDeleted" : 
+          "type": "string"
+          "format": "date-time"
+      "visitCounter" : 
+          "type": "integer"
+      "history" : 
+          "type" : "array"
+          "items":
+            "type": object
+            "properties":
+              "history" : 
+                "type": "string"
+                "format": "date-time"
+  
+  user:
+    type: "object"
+    properties:
+      "emailId":
+        "type": "string"
+      "isDeleted" : 
+          "type" : "boolean"
+      "dateCreated" : 
+          "type": "string"
+          "format": "date-time"
+      "dateUpdated" : 
+          "type": "string"
+          "format": "date-time"
+      "dateDeleted" : 
+          "type": "string"
+          "format": "date-time"
+      "bookmarks" : 
+          "type" : "array"
+          "items":
+            "type": object
+            "properties":
+              "bookmarkId" : 
+                "type": "string"
+          
+      
